@@ -1,6 +1,6 @@
 part of 'theme.dart';
 
-var primaryText=TextTheme(
+var primaryText = TextTheme(
   headline1: TextStyle(color: colorPalette.primaryColor[500], fontSize: 20),
   headline2: TextStyle(color: colorPalette.primaryColor[500], fontSize: 18),
   headline3: TextStyle(color: colorPalette.primaryColor[500], fontSize: 16),

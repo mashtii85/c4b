@@ -1,6 +1,6 @@
 part of 'theme.dart';
 
-var floatingActionButton=FloatingActionButtonThemeData(
+var floatingActionButton = FloatingActionButtonThemeData(
     elevation: fixtures!.elevation,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(fixtures!.borderRadius),

@@ -1,6 +1,6 @@
 part of 'theme.dart';
 
-var inputDecoration=InputDecorationTheme(
+var inputDecoration = InputDecorationTheme(
   filled: true,
   fillColor: fixtures.colorPalette.white,
   errorStyle: TextStyle(color: fixtures.colorPalette.red),
@@ -18,8 +18,7 @@ var inputDecoration=InputDecorationTheme(
     borderRadius: BorderRadius.circular(fixtures.borderRadius),
   ),
   focusedBorder: OutlineInputBorder(
-    borderSide:
-    BorderSide(width: 0.5, color: colorPalette.primaryColor[500]!),
+    borderSide: BorderSide(width: 0.5, color: colorPalette.primaryColor[500]!),
     borderRadius: BorderRadius.circular(fixtures!.borderRadius),
   ),
   labelStyle: TextStyle(color: fixtures.colorPalette.black, fontSize: 14),

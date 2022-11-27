@@ -1,6 +1,6 @@
 part of 'theme.dart';
 
-var colorScheme= ColorScheme(
+var colorScheme = ColorScheme(
     background: fixtures.colorPalette.red,
     primary: colorPalette.primaryColor[500]!,
     secondary: colorPalette.primaryColor,
@@ -11,5 +11,4 @@ var colorScheme= ColorScheme(
     onError: colorPalette.red[300]!,
     onBackground: fixtures.colorPalette.green,
     onSurface: fixtures.colorPalette.yellow,
-    brightness: Brightness.light
-);
+    brightness: Brightness.light);

@@ -4,11 +4,12 @@ class TokenRes {
     required this.tokenType,
     required this.expiresIn,
   });
+
   late final String accessToken;
   late final String tokenType;
   late final int expiresIn;
 
-  TokenRes.fromJson(Map<String, dynamic> json){
+  TokenRes.fromJson(Map<String, dynamic> json) {
     accessToken = json['access_token'];
     tokenType = json['token_type'];
     expiresIn = json['expires_in'];

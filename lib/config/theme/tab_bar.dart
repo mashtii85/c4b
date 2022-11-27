@@ -1,6 +1,6 @@
 part of 'theme.dart';
 
-var tabBar=TabBarTheme(
+var tabBar = TabBarTheme(
     indicatorSize: TabBarIndicatorSize.tab,
     labelPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
     unselectedLabelStyle: TextStyle(
@@ -9,7 +9,7 @@ var tabBar=TabBarTheme(
         fontFamily: Constants().fontFamily),
     indicator: UnderlineTabIndicator(
       borderSide:
-      BorderSide(color: colorPalette.primaryColor[500]!, width: 1.0),
+          BorderSide(color: colorPalette.primaryColor[500]!, width: 1.0),
     ),
     labelColor: colorPalette.primaryColor[500],
     labelStyle: TextStyle(

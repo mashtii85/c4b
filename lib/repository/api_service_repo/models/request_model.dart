@@ -5,5 +5,6 @@ class RequestModel {
   final dynamic body;
   final RequestTypes? requestType;
   final dynamic headerData;
+
   RequestModel({this.url, this.body, this.requestType, this.headerData});
 }

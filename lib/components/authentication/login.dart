@@ -4,7 +4,6 @@ import 'package:c4b/config/fixture_provider.dart';
 import 'package:c4b/config/theme/theme.dart';
 import 'package:flutter/material.dart';
 
-
 class Login extends StatefulWidget {
   const Login({super.key});
 
@@ -13,7 +12,6 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-
   final _formKey = GlobalKey<FormState>();
   TextEditingController _userNameTextController = TextEditingController();
   TextEditingController _passwordTextController = TextEditingController();
@@ -32,7 +30,9 @@ class _LoginState extends State<Login> {
       body: Form(
         key: _formKey,
         child: Padding(
-          padding: EdgeInsets.all(fixtures.padding.d16,),
+          padding: EdgeInsets.all(
+            fixtures.padding.d16,
+          ),
           child: ListView(
             shrinkWrap: true,
             children: <Widget>[
@@ -44,7 +44,6 @@ class _LoginState extends State<Login> {
               _title("password"),
               _password(),
               sizedBox,
-
               SizedBox(
                 height: fixtures.sizedBox.d20,
               ),
@@ -56,9 +55,9 @@ class _LoginState extends State<Login> {
           ),
         ),
       ),
-
     );
   }
+
   Padding _title(String translationKey) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: fixtures.padding.d08),
@@ -143,22 +142,21 @@ class _LoginState extends State<Login> {
     );
   }
 
-
   Widget _signInButton(width, isLoading) {
     return InkWell(
       key: const Key('signInButton'),
       onTap: isLoading
           ? null
           : () {
-        if (_formKey.currentState!.validate()) {
-          // context.read<AuthenticateCubit>().loginButtonPressed(
-          //     CredentialReqModel(
-          //         userName: _userNameTextController.text,
-          //         grantType: "password",
-          //         password: _passwordTextController.text),
-          //     _urlController.text);
-        }
-      },
+              if (_formKey.currentState!.validate()) {
+                // context.read<AuthenticateCubit>().loginButtonPressed(
+                //     CredentialReqModel(
+                //         userName: _userNameTextController.text,
+                //         grantType: "password",
+                //         password: _passwordTextController.text),
+                //     _urlController.text);
+              }
+            },
       child: Container(
           alignment: Alignment.center,
           width: double.infinity,
@@ -168,22 +166,22 @@ class _LoginState extends State<Login> {
               borderRadius: BorderRadius.circular(fixtures.borderRadius)),
           child: isLoading
               ? CustomProgressIndicator(
-            color: fixtures.colorPalette.white,
-            size: 15,
-            type: ProgressIndicatorType.ChasingDots,
-          )
-              : const Text(
-              'Login'
-          )),
+                  color: fixtures.colorPalette.white,
+                  size: 15,
+                  type: ProgressIndicatorType.ChasingDots,
+                )
+              : const Text('Login')),
     );
   }
 
   Widget _showWarningDialog() {
     return InkWell(
-      onTap: (){
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Not implemented yet!')));
+      onTap: () {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Not implemented yet!')));
       },
-      child: const Text('Having trouble signing in ?',
+      child: const Text(
+        'Having trouble signing in ?',
       ),
     );
   }

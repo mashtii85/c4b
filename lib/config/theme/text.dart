@@ -1,6 +1,6 @@
 part of 'theme.dart';
 
-var text= const  TextTheme(
+var text = const TextTheme(
   headline1: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
   headline2: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
   headline3: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),

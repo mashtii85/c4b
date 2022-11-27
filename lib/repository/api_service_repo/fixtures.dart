@@ -14,7 +14,9 @@ BaseResModel _httpException() {
       success: false,
       statusCode: 503,
       message: [
-        MessageResModel(text: 'Error in fetching data', description: 'Service is unavailable!')
+        MessageResModel(
+            text: 'Error in fetching data',
+            description: 'Service is unavailable!')
       ],
       payloads: Map<String, dynamic>());
   return _baseModel;
@@ -25,15 +27,16 @@ BaseResModel _socketException() {
       success: false,
       statusCode: 503,
       message: [
-        MessageResModel(text: 'Error in fetching data', description: 'No internet connection!')
+        MessageResModel(
+            text: 'Error in fetching data',
+            description: 'No internet connection!')
       ],
       payloads: Map<String, dynamic>());
   return _baseModel;
 }
 
 Future<Map<String, dynamic>?> _getCredential(
-    {required String url,
-    required Map<String, dynamic> body}) async {
+    {required String url, required Map<String, dynamic> body}) async {
   try {
     final Map<String, String> headerData = {
       "Content-type": "application/x-www-form-urlencoded",

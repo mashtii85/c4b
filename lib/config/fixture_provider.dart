@@ -5,21 +5,21 @@ import 'package:flutter/material.dart';
 late Fixtures _fixtures;
 
 Fixtures get fixtures => _fixtures;
+
 set withFixtures(Fixtures fixtures) => _fixtures = fixtures;
 
 class Fixtures {
   Fixtures(
       {required this.borderRadius,
-        required this.margin,
-        required this.elevation,
-        required this.appLogo,
-        required this.drawer,
-        required this.padding,
-        required this.colorPalette,
-        required this.loadingPage,
-        required this.sizedBox,
-        required this.font
-      });
+      required this.margin,
+      required this.elevation,
+      required this.appLogo,
+      required this.drawer,
+      required this.padding,
+      required this.colorPalette,
+      required this.loadingPage,
+      required this.sizedBox,
+      required this.font});
 
   final double borderRadius;
   final Distance margin;
@@ -54,12 +54,13 @@ class Distance {
 class Font {
   Font(
       {required this.labelLarge,
-        required this.headlineMedium,
-        required this.displayMedium,
-        required this.titleLarge,
-        required this.titleMedium,
-        required this.bodyLarge,
-        required this.bodyMedium});
+      required this.headlineMedium,
+      required this.displayMedium,
+      required this.titleLarge,
+      required this.titleMedium,
+      required this.bodyLarge,
+      required this.bodyMedium});
+
   final TextStyle labelLarge;
   final TextStyle headlineMedium;
   final TextStyle displayMedium;
@@ -71,11 +72,18 @@ class Font {
 
 abstract class IColorPalette {
   MaterialColor get primaryColor;
+
   MaterialColor get backgroundColor;
+
   MaterialColor get grey;
+
   MaterialColor get white;
+
   MaterialColor get black;
+
   MaterialColor get yellow;
+
   MaterialColor get red;
+
   MaterialColor get green;
 }

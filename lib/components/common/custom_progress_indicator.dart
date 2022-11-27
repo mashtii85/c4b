@@ -2,7 +2,6 @@ import 'package:c4b/config/fixture_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-
 enum ProgressIndicatorType {
   DoubleBounce,
   RotatingPlain,
@@ -17,12 +16,15 @@ enum ProgressIndicatorType {
 
 class CustomProgressIndicator extends StatelessWidget {
   const CustomProgressIndicator(
-      {super.key, this.size = 70,
+      {super.key,
+      this.size = 70,
       this.type = ProgressIndicatorType.CubeGrid,
       this.color = Colors.white});
+
   final double size;
   final Color color;
   final ProgressIndicatorType type;
+
   @override
   Widget build(BuildContext context) {
     switch (type) {

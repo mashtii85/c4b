@@ -23,9 +23,10 @@ final log = Logger(
 );
 
 class ApiService extends QueryString {
-
   static ApiService? _singleton;
+
   ApiService._internal();
+
   var token;
   bool? isLoginApi;
 
@@ -35,7 +36,6 @@ class ApiService extends QueryString {
   }
 
   final isDebug = !kReleaseMode;
-
 
   /// get user name and password and return a token instead
   Future<Map<String, dynamic>?> getCredential(
@@ -68,7 +68,6 @@ class ApiService extends QueryString {
     response = await http.get(uri, headers: headerData);
     debugPrint(response.body);
     return BaseResModel.fromJson(json.decode(response.body));
-
   }
 
   Future<BaseResModel> post(
@@ -96,8 +95,6 @@ class ApiService extends QueryString {
       var string = response.body;
       log.i(string);
       return BaseResModel.fromJson(json.decode(response.body));
-
-
     } on SocketException {
       return _socketException();
     } on HttpException {

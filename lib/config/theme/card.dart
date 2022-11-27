@@ -1,6 +1,6 @@
 part of 'theme.dart';
 
-var card=CardTheme(
+var card = CardTheme(
   color: fixtures.colorPalette.white,
   elevation: 3,
   shape: RoundedRectangleBorder(
