@@ -38,13 +38,16 @@ class ApiService extends QueryString {
   final isDebug = !kReleaseMode;
 
   /// get user name and password and return a token instead
-  Future<Map<String, dynamic>?> getCredential(
-      {required String url,
-      required Map<String, dynamic> body,
-      String? appName}) async {
-    return _getCredential(url: url, body: body);
-  }
+  Future<String> getCredential({
+    required String url,
+    required Map<String, dynamic> body,
+  }) async {
 
+    var response =  await _getCredential(url: url, body: body,);
+
+    return response;
+  }
+  // https://3a5t828wn0.execute-api.us-east-1.amazonaws.com/C4B2/token
   Future<BaseResModel> get({required String url}) async {
     if (isDebug) {
       log.i('get request to $url');

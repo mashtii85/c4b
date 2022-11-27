@@ -35,7 +35,7 @@ BaseResModel _socketException() {
   return _baseModel;
 }
 
-Future<Map<String, dynamic>?> _getCredential(
+Future<String> _getCredential(
     {required String url, required Map<String, dynamic> body}) async {
   try {
     final Map<String, String> headerData = {
@@ -44,11 +44,13 @@ Future<Map<String, dynamic>?> _getCredential(
 
     http.Response response;
     Uri uri = Uri.parse(contextProvider.baseUrl! + url);
-    response = await http.post(uri, body: body, headers: headerData);
-    log.i(json.decode(response.body).runtimeType.toString());
-    return json.decode(response.body);
+    // log.i(uri.toString());
+
+    response = await http.post(uri, body: body,);
+    log.i(response.body);
+    return response.body;
   } catch (error) {
     log.i(error.toString());
-    return null;
+    return '{statusCode=400,body=$error}';
   }
 }

@@ -9,7 +9,7 @@ class CredentialReqModel {
   String? password;
   String? grantType;
   String? shortCode;
-  factory CredentialReqModel.fromJson(Map<String, dynamic> json) =>
+  factory CredentialReqModel.fromString(Map<String, dynamic> json) =>
       _$CredentialReqModelFromJson(json);
   Map<String, dynamic> toJson() => _$CredentialReqModelToJson(this);
 }

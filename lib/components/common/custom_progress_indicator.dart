@@ -29,7 +29,7 @@ class CustomProgressIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (type) {
       case ProgressIndicatorType.DoubleBounce:
-        return Container(
+        return SizedBox(
             width: size,
             height: size,
             child: SpinKitDoubleBounce(
@@ -38,7 +38,7 @@ class CustomProgressIndicator extends StatelessWidget {
             ));
 
       case ProgressIndicatorType.RotatingPlain:
-        return Container(
+        return SizedBox(
             width: size,
             height: size,
             child: SpinKitRotatingPlain(
@@ -47,7 +47,7 @@ class CustomProgressIndicator extends StatelessWidget {
             ));
 
       case ProgressIndicatorType.WanderingCubes:
-        return Container(
+        return SizedBox(
             width: size,
             height: size,
             child: SpinKitWanderingCubes(
@@ -56,7 +56,7 @@ class CustomProgressIndicator extends StatelessWidget {
             ));
 
       case ProgressIndicatorType.Wave:
-        return Container(
+        return SizedBox(
             width: size,
             height: size,
             child: SpinKitWave(
@@ -65,7 +65,7 @@ class CustomProgressIndicator extends StatelessWidget {
             ));
 
       case ProgressIndicatorType.FadingCube:
-        return Container(
+        return SizedBox(
           width: size,
           height: size,
           child: SpinKitFadingCube(
@@ -75,7 +75,7 @@ class CustomProgressIndicator extends StatelessWidget {
         );
 
       case ProgressIndicatorType.Pulse:
-        return Container(
+        return SizedBox(
           width: size,
           height: size,
           child: SpinKitPulse(
@@ -85,7 +85,7 @@ class CustomProgressIndicator extends StatelessWidget {
         );
 
       case ProgressIndicatorType.ChasingDots:
-        return Container(
+        return SizedBox(
             width: size,
             height: size,
             child: SpinKitChasingDots(
@@ -94,7 +94,7 @@ class CustomProgressIndicator extends StatelessWidget {
             ));
 
       case ProgressIndicatorType.ThreeBounce:
-        return Container(
+        return SizedBox(
             width: size,
             height: size,
             child: SpinKitThreeBounce(
@@ -103,7 +103,7 @@ class CustomProgressIndicator extends StatelessWidget {
             ));
 
       case ProgressIndicatorType.CubeGrid:
-        return Container(
+        return SizedBox(
             width: size,
             height: size,
             child: SpinKitCubeGrid(
@@ -111,7 +111,7 @@ class CustomProgressIndicator extends StatelessWidget {
               size: size,
             ));
       default:
-        return Container(
+        return SizedBox(
             width: size,
             height: size,
             child: SpinKitCubeGrid(
