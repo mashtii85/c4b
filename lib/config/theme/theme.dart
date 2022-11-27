@@ -2,7 +2,7 @@ import 'package:c4b/components/common/loading.dart';
 import 'package:c4b/components/common/logo.dart';
 import 'package:flutter/material.dart';
 
-import '../color_palette.dart';
+import 'color_palette.dart';
 import '../constants.dart';
 import '../fixture_provider.dart';
 part 'fonts.dart';

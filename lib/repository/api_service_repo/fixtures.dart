@@ -4,7 +4,7 @@ BaseResModel _generalCatchException(error) {
   var _baseModel = BaseResModel(
       success: false,
       statusCode: 502,
-      message: [MessageResModel(text: 'خطا', description: error.toString())],
+      message: [MessageResModel(text: 'Error', description: error.toString())],
       payloads: Map<String, dynamic>());
   return _baseModel;
 }
@@ -14,8 +14,7 @@ BaseResModel _httpException() {
       success: false,
       statusCode: 503,
       message: [
-        MessageResModel(
-            text: 'خطا در واکشی', description: 'سرویس در دسترس نیست')
+        MessageResModel(text: 'Error in fetching data', description: 'Service is unavailable!')
       ],
       payloads: Map<String, dynamic>());
   return _baseModel;
@@ -26,18 +25,15 @@ BaseResModel _socketException() {
       success: false,
       statusCode: 503,
       message: [
-        MessageResModel(text: 'خطا در واکشی', description: 'اینترنت قطع است')
+        MessageResModel(text: 'Error in fetching data', description: 'No internet connection!')
       ],
       payloads: Map<String, dynamic>());
   return _baseModel;
 }
 
-
-
 Future<Map<String, dynamic>?> _getCredential(
     {required String url,
-    required Map<String, dynamic> body,
-    String? appName}) async {
+    required Map<String, dynamic> body}) async {
   try {
     final Map<String, String> headerData = {
       "Content-type": "application/x-www-form-urlencoded",

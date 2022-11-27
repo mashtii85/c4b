@@ -42,11 +42,10 @@ class ApiService extends QueryString {
       {required String url,
       required Map<String, dynamic> body,
       String? appName}) async {
-    return _getCredential(url: url, appName: appName, body: body);
+    return _getCredential(url: url, body: body);
   }
 
   Future<BaseResModel> get({required String url}) async {
-    token = contextProvider.token;
     if (isDebug) {
       log.i('get request to $url');
     }

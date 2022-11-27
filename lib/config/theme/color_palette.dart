@@ -1,7 +1,7 @@
 import 'package:c4b/extensions/color.dart';
 import 'package:flutter/material.dart';
 
-import 'fixture_provider.dart';
+import '../fixture_provider.dart';
 
 
 class ColorPalette extends IColorPalette {
