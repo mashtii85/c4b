@@ -7,7 +7,7 @@ import 'package:c4b/components/authentication/models/request/credential_req_mode
 import 'package:c4b/components/authentication/models/response/credential_res_model.dart';
 
 class AuthenticateRepository extends CredentialDao{
-  ApiService _service = ApiService();
+  final ApiService _service = ApiService();
 
   Future<CredentialResModel> login(CredentialReqModel credentials) async {
     var stringResponse = await _service.getCredential(

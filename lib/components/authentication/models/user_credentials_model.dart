@@ -1,10 +1,5 @@
 class UserCredentialsModel {
-  // UserCredentialsModel(
-  //     {required this.username,
-  //     required this.password,
-  //     required this.accessToken,
-  //     required this.tokenType,
-  //     required this.expireDate});
+
   UserCredentialsModel();
 
   late final String username;
@@ -14,11 +9,16 @@ class UserCredentialsModel {
   late final DateTime expireDate;
 
   UserCredentialsModel.fromJson(Map<String, dynamic> json) {
+    var jsonDate = json['expire_date'];
+    DateTime _expireDate=DateTime(1970, 1, 1);
+    if(jsonDate!=null){
+       _expireDate =  DateTime.parse(jsonDate);
+    }
     username = json['username'];
     password = json['password'];
     accessToken = json['access_token'];
     tokenType = json['token_type'];
-    expireDate = json['expire_date'] as DateTime;
+    expireDate = _expireDate;
   }
 
   Map<String, dynamic> toJson() {
@@ -27,7 +27,7 @@ class UserCredentialsModel {
     data['password'] = password;
     data['access_token'] = accessToken;
     data['token_type'] = tokenType;
-    data['expire_date'] = expireDate;
+    data['expire_date'] = expireDate.toString();
     return data;
   }
 }
