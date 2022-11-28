@@ -13,7 +13,7 @@ class JwtResModel {
   late DateTime expireDate;
 
   DateTime get _expireDate =>
-      DateTime.now().add(Duration(milliseconds: expiresIn!));
+      DateTime.now().add(Duration(seconds: expiresIn!));
 
   JwtResModel.fromJson(String encodedJson) {
     var json = jsonDecode(encodedJson);

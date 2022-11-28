@@ -18,21 +18,20 @@ class AuthorizeCubit extends Cubit<AuthorizeState> {
       : super(AuthorizeUninitialized());
 
   Future<void> appStarted() async {
+    emit(AuthorizeLoading());
     final UserCredentialsModel? userCredentials =
         await userRepository.retrieveToken();
-    bool localRetrieved = userCredentials != null;
 
     if (userCredentials != null &&
         userCredentials!.accessToken != null &&
         userCredentials!.tokenType != null) {
-      if (userCredentials.expireDate!.isBefore(DateTime.now())) {
+      if (userCredentials.isExpired) {
+        userRepository.deleteToken();
         emit(AuthorizeUnauthenticated());
+      } else {
         context_provider.userCredentials = userCredentials;
 
         emit(AuthorizeAuthenticated(userCredentials: userCredentials));
-      } else {
-        userRepository.deleteToken();
-        emit(AuthorizeUnauthenticated());
       }
     } else {
       emit(AuthorizeUnauthenticated());
@@ -46,6 +45,7 @@ class AuthorizeCubit extends Cubit<AuthorizeState> {
     UserCredentialsModel userCredentials = UserCredentialsModel()
       ..accessToken = jwtPayload!.accessToken!
       ..expireDate = jwtPayload!.expireDate!
+      ..expiresIn = jwtPayload.expiresIn
       ..tokenType = jwtPayload!.tokenType!
       ..password = credentials!.password!
       ..username = credentials!.username!;

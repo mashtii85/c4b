@@ -3,13 +3,11 @@ import 'package:bloc/bloc.dart';
 import 'package:c4b/components/authentication/cubit/authenticate_repository.dart';
 import 'package:c4b/components/authentication/cubit/authorize/cubit.dart';
 
-// import 'package:c4b/repository/api_service_repo/models/request/credentialReqModel.dart';
 import 'package:c4b/repository/api_service_repo/models/response/messageResModel.dart';
 import 'package:c4b/components/authentication/models/request/credential_req_model.dart';
 import 'package:c4b/components/authentication/models/response/jwt_res_model.dart';
 import 'package:c4b/components/authentication/models/response/credential_res_model.dart';
 import 'package:flutter/material.dart';
-import 'package:c4b/config/context_provider.dart' as context_provider;
 
 part 'states.dart';
 
@@ -17,7 +15,6 @@ class AuthenticateCubit extends Cubit<AuthenticateStates> {
   final AuthenticateRepository userRepository;
   final AuthorizeCubit? authorizeCubit;
 
-  // verification properties
   static String? password;
 
   AuthenticateCubit({

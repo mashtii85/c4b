@@ -7,6 +7,16 @@ class UserCredentialsModel {
   late final String accessToken;
   late final String tokenType;
   late final DateTime expireDate;
+  late final expiresIn;
+
+  late final bool isExpired;
+
+  bool get _isExpired {
+    print(DateTime.now().difference(expireDate).inSeconds);
+    var expiary = DateTime.now().difference(expireDate).inSeconds;
+
+    return   expiary > expiresIn;
+  }
 
   UserCredentialsModel.fromJson(Map<String, dynamic> json) {
     var jsonDate = json['expire_date'];
@@ -18,7 +28,9 @@ class UserCredentialsModel {
     password = json['password'];
     accessToken = json['access_token'];
     tokenType = json['token_type'];
+    expiresIn = json['expires_in'] as int;
     expireDate = _expireDate;
+    isExpired = _isExpired;
   }
 
   Map<String, dynamic> toJson() {
@@ -27,6 +39,7 @@ class UserCredentialsModel {
     data['password'] = password;
     data['access_token'] = accessToken;
     data['token_type'] = tokenType;
+    data['expires_in'] = expiresIn;
     data['expire_date'] = expireDate.toString();
     return data;
   }
