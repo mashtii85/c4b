@@ -9,7 +9,7 @@ import 'package:c4b/components/authentication/models/request/credential_req_mode
 import 'package:c4b/components/authentication/models/response/jwt_res_model.dart';
 import 'package:c4b/components/authentication/models/response/credential_res_model.dart';
 import 'package:flutter/material.dart';
-import 'package:c4b/config/context_provider.dart' as contextProvider;
+import 'package:c4b/config/context_provider.dart' as context_provider;
 
 part 'states.dart';
 

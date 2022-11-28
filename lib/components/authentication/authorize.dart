@@ -32,10 +32,10 @@ class _AuthorizeState extends State<Authorize> {
         } else if (state is AuthorizeLoading) {
           return const Loading();
         } else if (state is AuthorizeAuthenticated) {
-          // contextProvider.logout = context.read<AuthorizeCubit>().logOut;
+          // context_provider.logout = context.read<AuthorizeCubit>().logOut;
           return const Home();
         }
-        return const Loading();
+        return const Text('error');
       },
     );
 

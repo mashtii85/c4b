@@ -7,7 +7,7 @@ import 'package:c4b/components/authentication/models/response/credential_res_mod
 import 'package:c4b/components/authentication/models/response/jwt_res_model.dart';
 import 'package:c4b/components/authentication/models/user_credentials_model.dart';
 import 'package:flutter/material.dart';
-import 'package:c4b/config/context_provider.dart' as contextProvider;
+import 'package:c4b/config/context_provider.dart' as context_provider;
 
 part 'states.dart';
 
@@ -20,18 +20,19 @@ class AuthorizeCubit extends Cubit<AuthorizeState> {
   Future<void> appStarted() async {
     final UserCredentialsModel? userCredentials =
         await userRepository.retrieveToken();
+    bool localRetrieved = userCredentials != null;
 
-    // var a = userCredentials!.expireDate!.isBefore(DateTime.now());
-    // print(a);
     if (userCredentials != null &&
         userCredentials!.accessToken != null &&
         userCredentials!.tokenType != null) {
       if (userCredentials.expireDate!.isBefore(DateTime.now())) {
+        emit(AuthorizeUnauthenticated());
+        context_provider.userCredentials = userCredentials;
+
+        emit(AuthorizeAuthenticated(userCredentials: userCredentials));
+      } else {
         userRepository.deleteToken();
         emit(AuthorizeUnauthenticated());
-      } else {
-        contextProvider.userCredentials = userCredentials;
-        emit(AuthorizeAuthenticated(userCredentials: userCredentials));
       }
     } else {
       emit(AuthorizeUnauthenticated());
@@ -44,13 +45,13 @@ class AuthorizeCubit extends Cubit<AuthorizeState> {
     emit(AuthorizeLoading());
     UserCredentialsModel userCredentials = UserCredentialsModel()
       ..accessToken = jwtPayload!.accessToken!
-      ..expiresIn = jwtPayload!.expiresIn!
+      ..expireDate = jwtPayload!.expireDate!
       ..tokenType = jwtPayload!.tokenType!
       ..password = credentials!.password!
       ..username = credentials!.username!;
 
     await userRepository.persistToken(userCredentials);
-    contextProvider.userCredentials = userCredentials;
+    context_provider.userCredentials = userCredentials;
     emit(AuthorizeAuthenticated(userCredentials: userCredentials));
   }
 

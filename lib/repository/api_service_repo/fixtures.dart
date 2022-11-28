@@ -43,7 +43,7 @@ Future<String> _getCredential(
     };
 
     http.Response response;
-    Uri uri = Uri.parse(contextProvider.baseUrl! + url);
+    Uri uri = Uri.parse(context_provider.baseUrl! + url);
     // log.i(uri.toString());
 
     response = await http.post(uri, body: body,);

@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 
-import 'package:c4b/config/context_provider.dart' as contextProvider;
+import 'package:c4b/config/context_provider.dart' as context_provider;
 import 'formatters/query_string.dart';
 import 'models/response/baseResModel.dart';
 import 'models/response/messageResModel.dart';
@@ -54,10 +54,10 @@ class ApiService extends QueryString {
 
     http.Response response;
     Map<String, String> headerData;
-    if (contextProvider.token != null && contextProvider.token!.isNotEmpty) {
+    if (context_provider.token != null && context_provider.token!.isNotEmpty) {
       headerData = {
         "Accept": "application/json",
-        "authorization": contextProvider.token!,
+        "authorization": context_provider.token!,
       };
     } else {
       headerData = {
@@ -65,7 +65,7 @@ class ApiService extends QueryString {
         "Accept": "application/json",
       };
     }
-    Uri uri = Uri.parse(contextProvider.baseUrl! + url);
+    Uri uri = Uri.parse(context_provider.baseUrl! + url);
 //
     response = await http.get(uri, headers: headerData);
     debugPrint(response.body);
@@ -78,8 +78,8 @@ class ApiService extends QueryString {
       required dynamic body,
       String? shortCode}) async {
     try {
-      token = contextProvider.token;
-      final String completeUrl = contextProvider.baseUrl! + url;
+      token = context_provider.token;
+      final String completeUrl = context_provider.baseUrl! + url;
       Uri uri = Uri.parse(completeUrl);
 
       final Map<String, String> headerData = {
@@ -111,8 +111,8 @@ class ApiService extends QueryString {
     required dynamic body,
   }) async {
     try {
-      token = contextProvider.token;
-      final String completeUrl = contextProvider.baseUrl! + url;
+      token = context_provider.token;
+      final String completeUrl = context_provider.baseUrl! + url;
       Uri uri = Uri.parse(completeUrl);
 
       final Map<String, String> headerData = {
@@ -144,8 +144,8 @@ class ApiService extends QueryString {
     required dynamic body,
   }) async {
     try {
-      token = contextProvider.token;
-      final String completeUrl = contextProvider.baseUrl! + url;
+      token = context_provider.token;
+      final String completeUrl = context_provider.baseUrl! + url;
       Uri uri = Uri.parse(completeUrl);
 
       final Map<String, String> headerData = {
@@ -172,17 +172,17 @@ class ApiService extends QueryString {
 
 //Todo: needs to be audited
   Future<BaseResModel> getFile({required String url}) async {
-    token = contextProvider.token;
+    token = context_provider.token;
     if (isDebug) {
       log.i('get request to $url');
     }
 
     http.Response response;
     Map<String, String?> headerData;
-    if (contextProvider.token != null && contextProvider.token!.isNotEmpty) {
+    if (context_provider.token != null && context_provider.token!.isNotEmpty) {
       headerData = {
         "Accept": "application/json",
-        "authorization": contextProvider.token,
+        "authorization": context_provider.token,
       };
     } else {
       headerData = {
@@ -190,7 +190,7 @@ class ApiService extends QueryString {
         "Accept": "application/json",
       };
     }
-    Uri uri = Uri.parse(contextProvider.baseUrl! + url);
+    Uri uri = Uri.parse(context_provider.baseUrl! + url);
 
     response = await http.get(uri, headers: headerData as Map<String, String>?);
     try {

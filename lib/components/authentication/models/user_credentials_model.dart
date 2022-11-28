@@ -1,36 +1,33 @@
 class UserCredentialsModel {
-  String? username;
-  String? password;
-  String? accessToken;
-  String? tokenType;
-  int? expiresIn;
-  DateTime? expireDate;
+  // UserCredentialsModel(
+  //     {required this.username,
+  //     required this.password,
+  //     required this.accessToken,
+  //     required this.tokenType,
+  //     required this.expireDate});
+  UserCredentialsModel();
 
-  DateTime? get _expireDate => DateTime.now().add(Duration(milliseconds: expiresIn!));
-
-  UserCredentialsModel(
-      {this.username,
-      this.password,
-      this.accessToken,
-      this.tokenType,
-      this.expiresIn});
+  late final String username;
+  late final String password;
+  late final String accessToken;
+  late final String tokenType;
+  late final DateTime expireDate;
 
   UserCredentialsModel.fromJson(Map<String, dynamic> json) {
     username = json['username'];
     password = json['password'];
     accessToken = json['access_token'];
     tokenType = json['token_type'];
-    expiresIn = json['expires_in'] as int;
-    expireDate = _expireDate;
+    expireDate = json['expire_date'] as DateTime;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['username'] = this.username;
-    data['password'] = this.password;
-    data['access_token'] = this.accessToken;
-    data['token_type'] = this.tokenType;
-    data['expires_in'] = this.expiresIn;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['username'] = username;
+    data['password'] = password;
+    data['access_token'] = accessToken;
+    data['token_type'] = tokenType;
+    data['expire_date'] = expireDate;
     return data;
   }
 }

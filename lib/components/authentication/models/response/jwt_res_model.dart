@@ -10,12 +10,17 @@ class JwtResModel {
   late final String accessToken;
   late final String tokenType;
   late final int expiresIn;
+  late DateTime expireDate;
+
+  DateTime get _expireDate =>
+      DateTime.now().add(Duration(milliseconds: expiresIn!));
 
   JwtResModel.fromJson(String encodedJson) {
     var json = jsonDecode(encodedJson);
     accessToken = json['access_token'];
     tokenType = json['token_type'];
     expiresIn = json['expires_in'];
+    expireDate = _expireDate;
   }
 
   Map<String, dynamic> toJson() {
