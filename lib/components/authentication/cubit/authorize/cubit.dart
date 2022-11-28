@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:c4b/components/authentication/cubit/authenticate_repository.dart';
-import 'package:c4b/repository/login_repo/models/response/credential_res_model.dart';
-import 'package:c4b/repository/login_repo/models/response/jwt_res_model.dart';
+import 'package:c4b/components/authentication/models/request/credential_req_model.dart';
+import 'package:c4b/components/authentication/models/response/credential_res_model.dart';
+import 'package:c4b/components/authentication/models/response/jwt_res_model.dart';
+import 'package:c4b/components/authentication/models/user_credentials_model.dart';
 import 'package:flutter/material.dart';
 import 'package:c4b/config/context_provider.dart' as contextProvider;
 
@@ -16,29 +18,40 @@ class AuthorizeCubit extends Cubit<AuthorizeState> {
       : super(AuthorizeUninitialized());
 
   Future<void> appStarted() async {
-    final JwtResModel? _jwtToken = await userRepository.retrieveToken();
+    final UserCredentialsModel? userCredentials =
+        await userRepository.retrieveToken();
 
-    if (_jwtToken != null &&
-        _jwtToken.accessToken != null &&
-        _jwtToken.tokenType!.isNotEmpty) {
-      if (_jwtToken.accessToken!.length > 10) {
-        //get global variable
-        contextProvider.jwtPayload = _jwtToken;
-        emit(AuthorizeAuthenticated(jwtToken: _jwtToken));
-      } else {
+    // var a = userCredentials!.expireDate!.isBefore(DateTime.now());
+    // print(a);
+    if (userCredentials != null &&
+        userCredentials!.accessToken != null &&
+        userCredentials!.tokenType != null) {
+      if (userCredentials.expireDate!.isBefore(DateTime.now())) {
+        userRepository.deleteToken();
         emit(AuthorizeUnauthenticated());
+      } else {
+        contextProvider.userCredentials = userCredentials;
+        emit(AuthorizeAuthenticated(userCredentials: userCredentials));
       }
     } else {
       emit(AuthorizeUnauthenticated());
     }
   }
 
-  Future<void> loggedIn() async {
+  Future<void> loggedIn(
+      {required CredentialReqModel credentials,
+      required JwtResModel jwtPayload}) async {
     emit(AuthorizeLoading());
+    UserCredentialsModel userCredentials = UserCredentialsModel()
+      ..accessToken = jwtPayload!.accessToken!
+      ..expiresIn = jwtPayload!.expiresIn!
+      ..tokenType = jwtPayload!.tokenType!
+      ..password = credentials!.password!
+      ..username = credentials!.username!;
 
-    await userRepository.persistToken(contextProvider.jwtPayload!);
-    // contextProvider.userCredential = userCredential;
-    emit(AuthorizeAuthenticated(jwtToken: contextProvider.jwtPayload!));
+    await userRepository.persistToken(userCredentials);
+    contextProvider.userCredentials = userCredentials;
+    emit(AuthorizeAuthenticated(userCredentials: userCredentials));
   }
 
   Future<void> logOut() async {

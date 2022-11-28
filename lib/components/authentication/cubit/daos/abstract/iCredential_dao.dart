@@ -1,10 +1,10 @@
 
-import 'package:c4b/repository/login_repo/models/response/jwt_res_model.dart';
+import 'package:c4b/components/authentication/models/user_credentials_model.dart';
 
 abstract class ICredentialDao {
-  Future persistToken(JwtResModel token);
+  Future persistToken(UserCredentialsModel userCredentials);
 
-  Future<JwtResModel?> retrieveToken();
+  Future<UserCredentialsModel?> retrieveToken();
 
   Future<bool> deleteToken();
 }

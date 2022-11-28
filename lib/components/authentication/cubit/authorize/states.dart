@@ -12,13 +12,13 @@ class AuthorizeUninitialized extends AuthorizeState {
 }
 
 class AuthorizeAuthenticated extends AuthorizeState {
-  final JwtResModel jwtToken;
-  AuthorizeAuthenticated({required this.jwtToken}) {
-    debugPrint('AuthorizeAuthenticated=>${jwtToken.toJson()}');
+  final UserCredentialsModel userCredentials;
+  AuthorizeAuthenticated({required this.userCredentials}) {
+    debugPrint('AuthorizeAuthenticated=>${userCredentials.toJson()}');
   }
   @override
   String toString() {
-    return 'LoggedIn { token: $jwtToken }';
+    return 'LoggedIn { token: ${userCredentials.accessToken} }';
   }
 }
 

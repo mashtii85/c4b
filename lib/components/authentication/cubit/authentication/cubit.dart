@@ -5,9 +5,9 @@ import 'package:c4b/components/authentication/cubit/authorize/cubit.dart';
 
 // import 'package:c4b/repository/api_service_repo/models/request/credentialReqModel.dart';
 import 'package:c4b/repository/api_service_repo/models/response/messageResModel.dart';
-import 'package:c4b/repository/login_repo/models/request/credential_model.dart';
-import 'package:c4b/repository/login_repo/models/response/jwt_res_model.dart';
-import 'package:c4b/repository/login_repo/models/response/credential_res_model.dart';
+import 'package:c4b/components/authentication/models/request/credential_req_model.dart';
+import 'package:c4b/components/authentication/models/response/jwt_res_model.dart';
+import 'package:c4b/components/authentication/models/response/credential_res_model.dart';
 import 'package:flutter/material.dart';
 import 'package:c4b/config/context_provider.dart' as contextProvider;
 
@@ -30,21 +30,19 @@ class AuthenticateCubit extends Cubit<AuthenticateStates> {
     authorizeCubit!.unInitialize();
   }
 
-  Future<void> loginButtonPressed(CredentialModelReq credential) async {
+  Future<void> loginButtonPressed(CredentialReqModel credential) async {
     emit(AuthenticateLoading());
     try {
       CredentialResModel model = await userRepository.login(credential);
 
       if (model.statusCode == 200) {
         var token = JwtResModel.fromJson(model.body);
-        authorizeCubit!.loggedIn();
-        emit(SignInSuccess());
 
-        authorizeCubit!.loggedIn();
+        authorizeCubit!.loggedIn(credentials: credential,jwtPayload: token);
         emit(SignInSuccess());
       } else {
         emit(AuthenticateFailure(
-            MessageResModel(title: 'User name or password is incorrect')));
+            MessageResModel(title: model.body)));
       }
     } catch (error) {
       emit(AuthenticateFailure(MessageResModel(title: error.toString())));

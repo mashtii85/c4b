@@ -1,23 +1,23 @@
 library fixtures_provider;
 
-import 'package:c4b/repository/login_repo/models/response/jwt_res_model.dart';
+import 'package:c4b/components/authentication/models/user_credentials_model.dart';
 
-String? _baseUrl;
+late String _baseUrl;
 
-late JwtResModel _jwtPayload;
+late UserCredentialsModel _userCredentials;
 
-set baseUrl(String? value) {
+set baseUrl(String value) {
   _baseUrl = value;
 }
 
-String? get baseUrl => _baseUrl;
+String get baseUrl => _baseUrl;
 
-JwtResModel get jwtPayload => _jwtPayload;
+UserCredentialsModel get userCredentials => _userCredentials;
 
-set jwtPayload(JwtResModel jwt) {
-  _jwtPayload = jwt;
+set userCredentials(UserCredentialsModel credentials) {
+  _userCredentials = credentials;
 }
 
-String? get token => _jwtPayload.tokenType != null
-    ? '${jwtPayload.tokenType} ${_jwtPayload.accessToken}'
+String? get token => _userCredentials.tokenType != null
+    ? '${userCredentials.tokenType} ${_userCredentials.accessToken}'
     : null;

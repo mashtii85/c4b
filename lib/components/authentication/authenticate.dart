@@ -2,7 +2,7 @@ import 'package:c4b/components/authentication/cubit/authentication/cubit.dart';
 import 'package:c4b/components/common/custom_progress_indicator.dart';
 import 'package:c4b/config/constants.dart';
 import 'package:c4b/config/fixture_provider.dart';
-import 'package:c4b/repository/login_repo/models/request/credential_model.dart';
+import 'package:c4b/components/authentication/models/request/credential_req_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -167,7 +167,7 @@ class _AuthenticateState extends State<Authenticate> {
           : () {
               if (_formKey.currentState!.validate()) {
                 context.read<AuthenticateCubit>().loginButtonPressed(
-                    CredentialModelReq(
+                    CredentialReqModel(
                         username: _userNameTextController.text,
                         password: _passwordTextController.text));
               }

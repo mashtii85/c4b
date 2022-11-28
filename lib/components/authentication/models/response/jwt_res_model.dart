@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class JwtResModel {
   JwtResModel({
     required this.accessToken,
@@ -9,7 +11,8 @@ class JwtResModel {
   late final String tokenType;
   late final int expiresIn;
 
-  JwtResModel.fromJson(Map<String, dynamic> json) {
+  JwtResModel.fromJson(String encodedJson) {
+    var json = jsonDecode(encodedJson);
     accessToken = json['access_token'];
     tokenType = json['token_type'];
     expiresIn = json['expires_in'];

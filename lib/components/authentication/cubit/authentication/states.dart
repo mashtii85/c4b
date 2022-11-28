@@ -12,7 +12,7 @@ class AuthenticateUnInitialized extends AuthenticateStates {
 }
 
 class UserCredentialSuccess extends AuthenticateStates {
-  final CredentialModelReq userCredential;
+  final CredentialReqModel userCredential;
 
   UserCredentialSuccess(this.userCredential) {
     debugPrint('userCredentialSuccess=>${userCredential.toJson()}');
