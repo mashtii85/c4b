@@ -4,7 +4,7 @@ import 'package:c4b/components/authentication/cubit/authorize/cubit.dart';
 import 'package:c4b/config/bloc_observer.dart';
 import 'package:flutter/material.dart';
 
-import 'components/authentication/login.dart';
+import 'components/authentication/authorize.dart';
 import 'config/theme/theme.dart';
 import 'package:c4b/config/context_provider.dart' as contextProvider;
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -68,8 +68,8 @@ class _MyAppState extends State<MyApp> {
           title: 'Flutter Demo',
           debugShowCheckedModeBanner: false,
           scaffoldMessengerKey: scaffoldMessengerKey,
-          theme: theme(context, ''),
-          home: Login(),
+          theme: theme(context, 'fontFamily'),
+          home: const Authorize(),
         ));
   }
 }

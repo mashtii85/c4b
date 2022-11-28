@@ -1,20 +1,19 @@
-import 'package:c4b/components/Home/home.dart';
+import 'package:c4b/components/authentication/cubit/authentication/cubit.dart';
 import 'package:c4b/components/common/custom_progress_indicator.dart';
 import 'package:c4b/config/constants.dart';
 import 'package:c4b/config/fixture_provider.dart';
+import 'package:c4b/repository/login_repo/models/request/credential_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'cubit/authorize/cubit.dart';
-
-class Login extends StatefulWidget {
-  const Login({super.key});
+class Authenticate extends StatefulWidget {
+  const Authenticate({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<Authenticate> createState() => _AuthenticateState();
 }
 
-class _LoginState extends State<Login> {
+class _AuthenticateState extends State<Authenticate> {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _userNameTextController =
@@ -35,54 +34,50 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthorizeCubit, AuthorizeState>(
-      bloc: context.read<AuthorizeCubit>(),
-      listener: (context,state){},
-      builder: (context, state) {
-        if (state is AuthorizeUninitialized) {
-          context.read<AuthorizeCubit>().appStarted();
-        } else if (state is AuthorizeUnauthenticated) {
-          return _LoginPage();
-        } else if (state is AuthorizeLoading) {
-          return Text('loading');
-        } else if (state is AuthorizeAuthenticated) {
-          // contextProvider.logout = context.read<AuthorizeCubit>().logOut;
-          return const Home();
-        }
-        return Text('loading');
-      },
-    );
-
-  }
-  Widget _LoginPage(){
-    double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Form(
-        key: _formKey,
-        child: Padding(
-          padding: EdgeInsets.all(
-            fixtures.padding.d16,
-          ),
-          child: ListView(
-            shrinkWrap: true,
-            children: <Widget>[
-              _pictureBox(context),
-              sizedBox,
-              _title("userName"),
-              _userName(context),
-              sizedBox,
-              _title("password"),
-              _password(context),
-              sizedBox,
-              SizedBox(
-                height: fixtures.sizedBox.d20,
-              ),
-              _signInButton(width, true),
-              sizedBox,
-              sizedBox,
-              _showWarningDialog(context),
-            ],
-          ),
+      body: SafeArea(
+          child: BlocConsumer<AuthenticateCubit, AuthenticateStates>(
+              bloc: context.watch<AuthenticateCubit>(),
+              listener: (context, state) {
+                if (state is AuthenticateFailure) {
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(const SnackBar(content: Text('Failed')));
+                } else if (state is UserAuthenticateSucceeded) {}
+              },
+              builder: (context, state) {
+                return _loginPage(state is AuthenticateLoading);
+              })),
+    );
+  }
+
+  Widget _loginPage(bool isLoading) {
+    double width = MediaQuery.of(context).size.width;
+
+    return Form(
+      key: _formKey,
+      child: Padding(
+        padding: EdgeInsets.all(
+          fixtures.padding.d16,
+        ),
+        child: ListView(
+          shrinkWrap: true,
+          children: <Widget>[
+            _pictureBox(context),
+            sizedBox,
+            _title("userName"),
+            _userName(context),
+            sizedBox,
+            _title("password"),
+            _password(context),
+            sizedBox,
+            SizedBox(
+              height: fixtures.sizedBox.d20,
+            ),
+            _signInButton(width, isLoading),
+            sizedBox,
+            sizedBox,
+            _showWarningDialog(context),
+          ],
         ),
       ),
     );
@@ -105,24 +100,21 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Directionality _userName(context) {
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: TextFormField(
-        validator: (value) {
-          if (value!.length <= 3) {
-            return 'Username length should be greater than 3';
-          }
-          return null;
-        },
-        key: const Key('userName'),
-        focusNode: _userFocusNode,
-        textInputAction: TextInputAction.next,
-        onFieldSubmitted: (v) {
-          FocusScope.of(context).requestFocus(_passwordFocusNode);
-        },
-        controller: _userNameTextController,
-      ),
+  TextFormField _userName(context) {
+    return TextFormField(
+      validator: (value) {
+        if (value!.length <= 3) {
+          return 'Username length should be greater than 3';
+        }
+        return null;
+      },
+      key: const Key('userName'),
+      focusNode: _userFocusNode,
+      textInputAction: TextInputAction.next,
+      onFieldSubmitted: (v) {
+        FocusScope.of(context).requestFocus(_passwordFocusNode);
+      },
+      controller: _userNameTextController,
     );
   }
 
@@ -167,13 +159,18 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Widget _signInButton(width, isLoading) {
+  Widget _signInButton(double width, bool isLoading) {
     return InkWell(
       key: const Key('signInButton'),
       onTap: isLoading
           ? null
           : () {
-              if (_formKey.currentState!.validate()) {}
+              if (_formKey.currentState!.validate()) {
+                context.read<AuthenticateCubit>().loginButtonPressed(
+                    CredentialModelReq(
+                        username: _userNameTextController.text,
+                        password: _passwordTextController.text));
+              }
             },
       child: Container(
           alignment: Alignment.center,
