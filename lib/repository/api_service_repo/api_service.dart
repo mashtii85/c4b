@@ -42,11 +42,14 @@ class ApiService extends QueryString {
     required String url,
     required Map<String, dynamic> body,
   }) async {
-
-    var response =  await _getCredential(url: url, body: body,);
+    var response = await _getCredential(
+      url: url,
+      body: body,
+    );
 
     return response;
   }
+
   Future<BaseResModel> get({required String url}) async {
     if (isDebug) {
       log.i('get request to $url');
@@ -72,11 +75,10 @@ class ApiService extends QueryString {
     return BaseResModel.fromJson(json.decode(response.body));
   }
 
-  Future<BaseResModel> post(
-      ////
-      {required String url,
-      required dynamic body,
-      String? shortCode}) async {
+  Future<BaseResModel> post({
+    required String url,
+    required dynamic body,
+  }) async {
     try {
       token = context_provider.token;
       final String completeUrl = context_provider.baseUrl! + url;
@@ -84,8 +86,8 @@ class ApiService extends QueryString {
 
       final Map<String, String> headerData = {
         "Content-type": "application/json",
+        "Accept": "application/json",
         "authorization": token,
-        "Short-Code": shortCode ?? ""
       };
       var _body = body != null ? json.encode(body) : {};
       if (isDebug) {

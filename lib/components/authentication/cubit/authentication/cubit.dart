@@ -39,7 +39,7 @@ class AuthenticateCubit extends Cubit<AuthenticateStates> {
         emit(SignInSuccess());
       } else {
         emit(AuthenticateFailure(
-            MessageResModel(title: model.body)));
+            MessageResModel(title: 'Authentication Failed',description: model.body)));
       }
     } catch (error) {
       emit(AuthenticateFailure(MessageResModel(title: error.toString())));

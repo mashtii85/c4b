@@ -40,8 +40,9 @@ class _AuthenticateState extends State<Authenticate> {
               bloc: context.watch<AuthenticateCubit>(),
               listener: (context, state) {
                 if (state is AuthenticateFailure) {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(const SnackBar(content: Text('Failed')));
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text(state.message.description ??
+                          'Authentication Failed')));
                 } else if (state is UserAuthenticateSucceeded) {}
               },
               builder: (context, state) {

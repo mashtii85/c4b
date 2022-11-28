@@ -1,4 +1,4 @@
-import 'package:c4b/components/Home/home.dart';
+import 'package:c4b/components/store/store.dart';
 import 'package:c4b/components/authentication/authenticate.dart';
 import 'package:c4b/components/common/custom_progress_indicator.dart';
 import 'package:c4b/components/common/loading.dart';
@@ -33,7 +33,7 @@ class _AuthorizeState extends State<Authorize> {
           return const Loading();
         } else if (state is AuthorizeAuthenticated) {
           // context_provider.logout = context.read<AuthorizeCubit>().logOut;
-          return const Home();
+          return const Store();
         }
         return const Text('error');
       },
