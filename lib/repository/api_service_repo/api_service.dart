@@ -47,7 +47,6 @@ class ApiService extends QueryString {
 
     return response;
   }
-  // https://3a5t828wn0.execute-api.us-east-1.amazonaws.com/C4B2/token
   Future<BaseResModel> get({required String url}) async {
     if (isDebug) {
       log.i('get request to $url');

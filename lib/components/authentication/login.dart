@@ -1,35 +1,63 @@
-import 'package:c4b/components/authentication/provider.dart';
+import 'package:c4b/components/Home/home.dart';
 import 'package:c4b/components/common/custom_progress_indicator.dart';
 import 'package:c4b/config/constants.dart';
 import 'package:c4b/config/fixture_provider.dart';
-import 'package:c4b/config/theme/theme.dart';
-import 'package:c4b/repository/login_repo/models/request/credential_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class Login extends HookConsumerWidget {
-  final _formKey = GlobalKey<FormState>();
-  final TextEditingController _userNameTextController =
-      useTextEditingController(text: 'tester3');
-  final TextEditingController _passwordTextController =
-      useTextEditingController(text: '74Ho4KxW');
-  final FocusNode _userFocusNode = useFocusNode();
-  final FocusNode _urlFocusNode = useFocusNode();
+import 'cubit/authorize/cubit.dart';
 
-  final FocusNode _passwordFocusNode = useFocusNode();
-  final sizedBox = SizedBox(height: fixtures.sizedBox.d08);
-
-  Login({super.key});
+class Login extends StatefulWidget {
+  const Login({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    useEffect(() {}, []);
-    // ref.read(authenticationProvider(CredentialModelReq(username: '',password: '')));
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  final _formKey = GlobalKey<FormState>();
+
+  final TextEditingController _userNameTextController =
+      TextEditingController(text: 'tester3');
+
+  final TextEditingController _passwordTextController =
+      TextEditingController(text: '74Ho4KxW');
+
+  final FocusNode _userFocusNode = FocusNode();
+
+  final FocusNode _urlFocusNode = FocusNode();
+
+  final FocusNode _passwordFocusNode = FocusNode();
+
+  final sizedBox = SizedBox(height: fixtures.sizedBox.d08);
+
+  bool isObscureText = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<AuthorizeCubit, AuthorizeState>(
+      bloc: context.read<AuthorizeCubit>(),
+      listener: (context,state){},
+      builder: (context, state) {
+        if (state is AuthorizeUninitialized) {
+          context.read<AuthorizeCubit>().appStarted();
+        } else if (state is AuthorizeUnauthenticated) {
+          return _LoginPage();
+        } else if (state is AuthorizeLoading) {
+          return Text('loading');
+        } else if (state is AuthorizeAuthenticated) {
+          // contextProvider.logout = context.read<AuthorizeCubit>().logOut;
+          return const Home();
+        }
+        return Text('loading');
+      },
+    );
+
+  }
+  Widget _LoginPage(){
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-        body: SafeArea(
-      child: Form(
+      body: Form(
         key: _formKey,
         child: Padding(
           padding: EdgeInsets.all(
@@ -40,16 +68,16 @@ class Login extends HookConsumerWidget {
             children: <Widget>[
               _pictureBox(context),
               sizedBox,
-              _title("User Name"),
+              _title("userName"),
               _userName(context),
               sizedBox,
-              _title("Password"),
+              _title("password"),
               _password(context),
               sizedBox,
               SizedBox(
                 height: fixtures.sizedBox.d20,
               ),
-              _signInButton(width, false, ref),
+              _signInButton(width, true),
               sizedBox,
               sizedBox,
               _showWarningDialog(context),
@@ -57,7 +85,7 @@ class Login extends HookConsumerWidget {
           ),
         ),
       ),
-    ));
+    );
   }
 
   Padding _title(String text) {
@@ -99,8 +127,6 @@ class Login extends HookConsumerWidget {
   }
 
   SizedBox _password(BuildContext context) {
-    final isObscureText = useState(true);
-
     return SizedBox(
       height: fixtures.sizedBox.d48,
       child: TextFormField(
@@ -111,7 +137,7 @@ class Login extends HookConsumerWidget {
           return null;
         },
         key: const Key('password'),
-        obscureText: isObscureText.value,
+        obscureText: isObscureText,
         focusNode: _passwordFocusNode,
         textInputAction: TextInputAction.go,
         onFieldSubmitted: (v) {
@@ -121,7 +147,9 @@ class Login extends HookConsumerWidget {
         decoration: InputDecoration(
           prefixIcon: GestureDetector(
               onTap: () {
-                isObscureText.value = !isObscureText.value;
+                setState(() {
+                  isObscureText = !isObscureText;
+                });
               },
               child: Container(
                 margin: EdgeInsets.all(fixtures.margin.d04),
@@ -130,7 +158,7 @@ class Login extends HookConsumerWidget {
                   color: fixtures.colorPalette.primaryColor,
                 ),
                 child: Icon(
-                  isObscureText.value ? Icons.visibility_off : Icons.visibility,
+                  isObscureText ? Icons.visibility_off : Icons.visibility,
                   color: fixtures.colorPalette.white,
                 ),
               )),
@@ -139,16 +167,13 @@ class Login extends HookConsumerWidget {
     );
   }
 
-  Widget _signInButton(width, isLoading, ref) {
+  Widget _signInButton(width, isLoading) {
     return InkWell(
       key: const Key('signInButton'),
       onTap: isLoading
           ? null
           : () {
-              if (_formKey.currentState!.validate()) {
-                ref.read(authenticationProvider(CredentialModelReq(
-                    username: _userNameTextController.text, password: _passwordTextController.text)));
-              }
+              if (_formKey.currentState!.validate()) {}
             },
       child: Container(
           alignment: Alignment.center,

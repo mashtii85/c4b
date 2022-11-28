@@ -2,7 +2,7 @@ class CredentialResModel {
   CredentialResModel({required this.statusCode, required this.body});
 
   late final int statusCode;
-  late final String body;
+  late final dynamic body;
 
   CredentialResModel.fromJson(String stringJson) {
     //Split key value pairs

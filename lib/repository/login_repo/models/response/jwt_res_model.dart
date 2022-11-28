@@ -1,5 +1,5 @@
-class TokenRes {
-  TokenRes({
+class JwtResModel {
+  JwtResModel({
     required this.accessToken,
     required this.tokenType,
     required this.expiresIn,
@@ -9,7 +9,7 @@ class TokenRes {
   late final String tokenType;
   late final int expiresIn;
 
-  TokenRes.fromJson(Map<String, dynamic> json) {
+  JwtResModel.fromJson(Map<String, dynamic> json) {
     accessToken = json['access_token'];
     tokenType = json['token_type'];
     expiresIn = json['expires_in'];

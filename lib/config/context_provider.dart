@@ -1,6 +1,10 @@
 library fixtures_provider;
 
+import 'package:c4b/repository/login_repo/models/response/jwt_res_model.dart';
+
 String? _baseUrl;
+
+late JwtResModel _jwtPayload;
 
 set baseUrl(String? value) {
   _baseUrl = value;
@@ -8,10 +12,12 @@ set baseUrl(String? value) {
 
 String? get baseUrl => _baseUrl;
 
-String? _token;
+JwtResModel get jwtPayload => _jwtPayload;
 
-set token(String? value) {
-  _token = value;
+set jwtPayload(JwtResModel jwt) {
+  _jwtPayload = jwt;
 }
 
-String? get token => _token;
+String? get token => _jwtPayload.tokenType != null
+    ? '${jwtPayload.tokenType} ${_jwtPayload.accessToken}'
+    : null;
