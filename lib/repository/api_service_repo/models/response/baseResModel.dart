@@ -25,5 +25,6 @@ class BaseResModel<T> {
 
   factory BaseResModel.fromJson(Map<String, dynamic> json) =>
       _$BaseResModelFromJson(json) as BaseResModel<T>;
+
   Map<String, dynamic> toJson() => _$BaseResModelToJson(this);
 }

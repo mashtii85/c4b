@@ -11,9 +11,7 @@ BaseResModel _$BaseResModelFromJson(Map<String, dynamic> json) {
     ..statusCode = json['statusCode'] as num?
     ..targetUrl = json['targetUrl'] as String?
     ..payloads = json['payloads'] as Map<String, dynamic>?
-    ..message = (json['message'] as List?)
-        ?.map((e) => MessageResModel.fromJson(e as Map<String, dynamic>))
-        .toList()
+    ..message = json['message']
     ..success = json['success'] as bool?
     ..unAuthorizedRequest = json['unAuthorizedRequest'] as bool?;
 }

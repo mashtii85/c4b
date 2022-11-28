@@ -1,9 +1,11 @@
 import 'package:c4b/components/authentication/provider.dart';
 import 'package:c4b/components/common/custom_progress_indicator.dart';
+import 'package:c4b/components/models/request/credential_model.dart';
+import 'package:c4b/components/models/response/credential_res_model.dart';
 import 'package:c4b/config/constants.dart';
 import 'package:c4b/config/fixture_provider.dart';
 import 'package:c4b/config/theme/theme.dart';
-import 'package:c4b/repository/login_repo/models/request/credential_model.dart';
+import 'package:c4b/repository/api_service_repo/models/response/baseResModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -22,11 +24,49 @@ class Login extends HookConsumerWidget {
 
   Login({super.key});
 
+  final loginPressed = useState(false);
+  final model = useState<CredentialModelReq?>(null);
+
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    useEffect(() {}, []);
+    var authWatcher = ref.watch(authenticationProvider(model.value));
+
+
     // ref.read(authenticationProvider(CredentialModelReq(username: '',password: '')));
     double width = MediaQuery.of(context).size.width;
+    // var a = ref.watch(authenticationProvider);
+// print(a);
+// Future<String> a=ref.watch(authenticationProvider('2'));
+
+    // ref.listen<String,String>(FutureProviderFamily((ref1) => authenticationProvider), (prev, next) {
+    //   print(prev);
+    //   print(next);
+    //   ScaffoldMessenger.of(context)
+    //       .showSnackBar(const SnackBar(content: Text('yoyo')));
+    // });
+
+    // var authWatcher = ref.watch(authenticationProvider(model.value));
+    // if(authWatcher.hasError){
+    //   // model.value=null;
+    //   ;
+    // }
+    var listener = ref.listen(authenticationProvider(model.value), (previous, next) {
+      if(next!.hasValue! && next.value!=null){
+        debugPrint('value is ========================> ${next.value}');
+          ScaffoldMessenger.of(context)
+              .showSnackBar(const SnackBar(content: Text('yoyo')));
+      }
+      else if(next!.hasError){
+        ScaffoldMessenger.of(context)
+            .showSnackBar( SnackBar(content: Text(next!.error!.toString())));
+      }
+      // print('state=>',previous);
+      // switch(previous){
+      //   case AsyncValue.data(value)
+      // }
+    });
+    print(authWatcher);
     return Scaffold(
         body: SafeArea(
       child: Form(
@@ -49,7 +89,7 @@ class Login extends HookConsumerWidget {
               SizedBox(
                 height: fixtures.sizedBox.d20,
               ),
-              _signInButton(width, false, ref),
+              _signInButton(width, authWatcher.isLoading, ref),
               sizedBox,
               sizedBox,
               _showWarningDialog(context),
@@ -139,32 +179,46 @@ class Login extends HookConsumerWidget {
     );
   }
 
-  Widget _signInButton(width, isLoading, ref) {
+  Widget _signInButton(width, isLoading, WidgetRef ref) {
+    // var a = ref.watch(authenticationProvider);
+    // a.value.login(credentials)
+    // var b = ref.listen(authenticationProvider(value), (previous, next) {
+    //   print('value ${previous!.value!.message![0]!.description!}');
+    //   print('loading=> ${previous.isLoading}');
+    // });
+
     return InkWell(
-      key: const Key('signInButton'),
-      onTap: isLoading
-          ? null
-          : () {
-              if (_formKey.currentState!.validate()) {
-                ref.read(authenticationProvider(CredentialModelReq(
-                    username: _userNameTextController.text, password: _passwordTextController.text)));
-              }
-            },
-      child: Container(
-          alignment: Alignment.center,
-          width: double.infinity,
-          height: 50,
-          decoration: BoxDecoration(
-              color: fixtures.colorPalette.primaryColor,
-              borderRadius: BorderRadius.circular(fixtures.borderRadius)),
-          child: isLoading
-              ? CustomProgressIndicator(
-                  color: fixtures.colorPalette.white,
-                  size: 15,
-                  type: ProgressIndicatorType.ChasingDots,
-                )
-              : const Text('Login')),
-    );
+        key: const Key('signInButton'),
+        onTap: isLoading
+            ? null
+            : () {
+                if (_formKey.currentState!.validate()) {
+                  model.value = CredentialModelReq(
+                      username: _userNameTextController.text,
+                      password: _passwordTextController.text);
+                  // ref.read(authenticationProvider).value!.login(CredentialModelReq(
+                  //     username: _userNameTextController.text,
+                  //     password: _passwordTextController.text));
+                  // ref.read(authenticationProvider.).
+                  // ref.read(authenticationProvider(CredentialModelReq(
+                  //     username: _userNameTextController.text,
+                  //     password: _passwordTextController.text)));
+                }
+              },
+        child: Container(
+            alignment: Alignment.center,
+            width: double.infinity,
+            height: 50,
+            decoration: BoxDecoration(
+                color: fixtures.colorPalette.primaryColor,
+                borderRadius: BorderRadius.circular(fixtures.borderRadius)),
+            child: isLoading
+                ? CustomProgressIndicator(
+                    color: fixtures.colorPalette.white,
+                    size: 15,
+                    type: ProgressIndicatorType.ChasingDots,
+                  )
+                : const Text('Login')));
   }
 
   Widget _showWarningDialog(context) {

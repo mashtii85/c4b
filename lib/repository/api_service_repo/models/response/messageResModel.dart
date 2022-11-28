@@ -11,7 +11,7 @@ class MessageResModel {
       this.text,
       this.developerMessage});
 
-  num? type;
+  String? type;
   String? title;
   String? text;
   String? description;

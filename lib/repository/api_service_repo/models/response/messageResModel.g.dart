@@ -8,7 +8,7 @@ part of 'messageResModel.dart';
 
 MessageResModel _$MessageResModelFromJson(Map<String, dynamic> json) {
   return MessageResModel()
-    ..type = json['type'] as num?
+    ..type = json['type'] as String?
     ..title = json['title'] as String?
     ..text = json['text'] as String?
     ..description = json['description'] as String?

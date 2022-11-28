@@ -2,15 +2,16 @@ class CredentialResModel {
   CredentialResModel({required this.statusCode, required this.body});
 
   late final int statusCode;
-  late final String body;
+  late final dynamic body;
 
   CredentialResModel.fromJson(String stringJson) {
     //Split key value pairs
-    var split = stringJson.replaceAll('}', '').split(',');
+    var string = stringJson.trim().replaceAll(RegExp(r"\s+"), "");
+    var bodyIndex = string.indexOf(',body=');
+    body = string.substring(bodyIndex+6,string.length-1);
 
-    //Extract value for each
-    statusCode = int.parse((split[0].split('=')[1]));
-    body = split[1].split('=')[1];
+    var statusIndex=string.indexOf('statusCode=');
+    statusCode = int.parse(string.substring(statusIndex+11,bodyIndex));
   }
 
   Map<String, dynamic> toJson() {
