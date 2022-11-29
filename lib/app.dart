@@ -1,6 +1,7 @@
 import 'package:c4b/components/authentication/cubit/authenticate_repository.dart';
 import 'package:c4b/components/authentication/cubit/authentication/cubit.dart';
 import 'package:c4b/components/authentication/cubit/authorize/cubit.dart';
+import 'package:c4b/components/products/models/response/product_res_model.dart';
 import 'package:c4b/components/products/screens/product_list.dart';
 import 'package:flutter/material.dart';
 
@@ -53,7 +54,16 @@ class _MyAppState extends State<MyApp> {
           debugShowCheckedModeBanner: false,
           scaffoldMessengerKey: scaffoldMessengerKey,
           theme: theme(context, 'fontFamily'),
-          home: ProductList(),
+          home: ProductList([
+            ProductResModel(
+                id: 1,
+                name: "Motorola Edge (2022)",
+                price: 1319,
+                color: 'green',
+                count: 50,
+                image: "https://fdn2.gsmarena.com/vv/pics/motorola/motorola-edge-2022-1.jpg",
+                brand: "Motorola")
+          ]),
           // home: const Authorize(),
         ));
   }
