@@ -1,9 +1,10 @@
 import 'package:c4b/components/authentication/cubit/authenticate_repository.dart';
 import 'package:c4b/components/authentication/cubit/authentication/cubit.dart';
 import 'package:c4b/components/authentication/cubit/authorize/cubit.dart';
+import 'package:c4b/components/products/screens/product_list.dart';
 import 'package:flutter/material.dart';
 
-import 'components/authentication/authorize.dart';
+import 'components/authentication/screens/authorize.dart';
 import 'config/theme/theme.dart';
 import 'package:c4b/config/context_provider.dart' as context_provider;
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,7 +36,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     var scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
     context_provider.baseUrl =
-    'https://3a5t828wn0.execute-api.us-east-1.amazonaws.com/C4B2/';
+        'https://3a5t828wn0.execute-api.us-east-1.amazonaws.com/C4B2/';
     return MultiBlocProvider(
         providers: [
           BlocProvider<AuthorizeCubit>(
@@ -47,13 +48,13 @@ class _MyAppState extends State<MyApp> {
             create: (context) => authenticateCubit,
           ),
         ],
-
         child: MaterialApp(
           title: 'Flutter Demo',
           debugShowCheckedModeBanner: false,
           scaffoldMessengerKey: scaffoldMessengerKey,
           theme: theme(context, 'fontFamily'),
-          home: const Authorize(),
+          home: ProductList(),
+          // home: const Authorize(),
         ));
   }
 }

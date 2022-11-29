@@ -18,7 +18,8 @@ class ProductFetchData extends ProductStates {
 }
 
 class ProductFetchSuccess extends ProductStates {
-  ProductFetchSuccess() {
+  final List<ProductResModel> productList;
+  ProductFetchSuccess(this.productList) {
     debugPrint('Fetch products success');
   }
 }
@@ -29,10 +30,10 @@ class ProductLoading extends ProductStates {
   }
 }
 
-class StoreFailure extends ProductStates {
+class ProductFailure extends ProductStates {
   final MessageResModel message;
 
-  const StoreFailure(this.message);
+  const ProductFailure(this.message);
 }
 
 

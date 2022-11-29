@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class FailurePage extends StatelessWidget {
   const FailurePage(
-      {required this.retryApiCallback, required this.errorMessageModel});
+      {super.key, required this.retryApiCallback, required this.errorMessageModel});
 
   final MessageResModel errorMessageModel;
   final void Function() retryApiCallback;
@@ -29,8 +29,7 @@ class FailurePage extends StatelessWidget {
                       Icons.refresh,
                       color: fixtures.colorPalette.white,
                       size: 35,
-                    ), label: Text(
-                      'تلاش مجدد',
+                    ), label: Text('Retry',
                       style: TextStyle(
                           color: fixtures.colorPalette.white, fontSize: 18),
                       textAlign: TextAlign.justify,
@@ -46,7 +45,7 @@ class FailurePage extends StatelessWidget {
                         visible: true,
                         child: Column(
                           children: [
-                            Text(errorMessageModel.text ?? '',
+                            Text(errorMessageModel.description ?? '',
                                 style: TextStyle(
                                     color: fixtures.colorPalette.black,
                                     fontSize: 12),

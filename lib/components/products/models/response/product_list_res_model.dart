@@ -1,4 +1,4 @@
-import 'package:c4b/components/product/models/response/product_res_model.dart';
+import 'package:c4b/components/products/models/response/product_res_model.dart';
 import 'package:flutter/material.dart';
 
 class ProductListResModel {
@@ -6,7 +6,7 @@ class ProductListResModel {
 
   late final List<ProductResModel> productsList;
 
-  ProductListResModel.fromJson(List<Map<String, dynamic>> json) {
+  ProductListResModel.fromJson(List<dynamic> json) {
     try {
       productsList = json.map((e) => ProductResModel.fromJson(e)).toList();
     } catch (error) {

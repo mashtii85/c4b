@@ -1,20 +1,20 @@
 import 'package:c4b/components/common/failure.dart';
 import 'package:c4b/components/common/loading.dart';
-import 'package:c4b/components/product/cubit/cubit.dart';
-import 'package:c4b/components/product/cubit/repository.dart';
-import 'package:c4b/components/product/models/request/product_list_req.dart';
+import 'package:c4b/components/products/cubits/cubit.dart';
+import 'package:c4b/components/products/cubits/repository.dart';
+import 'package:c4b/components/products/models/request/product_list_req.dart';
 import 'package:c4b/config/fixture_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class Product extends StatefulWidget {
-  const Product({super.key});
+class Products extends StatefulWidget {
+  const Products({super.key});
 
   @override
-  State<Product> createState() => _ProductState();
+  State<Products> createState() => _ProductsState();
 }
 
-class _ProductState extends State<Product> {
+class _ProductsState extends State<Products> {
   final _formKey = GlobalKey<FormState>();
 
   final sizedBox = SizedBox(height: fixtures.sizedBox.d08);
@@ -29,15 +29,14 @@ class _ProductState extends State<Product> {
         create: (_) => cubit,
         child: BlocConsumer<ProductCubit, ProductStates>(
             bloc: cubit,
-            listener: (context, state) {
-
-            },
+            listener: (context, state) {},
             builder: (context, state) {
               if (state is ProductUnInitialized) {
                 cubit.getData(ProductListReqModel(pageNumber: 1, pageSize: 10));
               } else if (state is ProductFetchSuccess) {
+                print(state.productList);
                 return Text('success');
-              } else if (state is StoreFailure) {
+              } else if (state is ProductFailure) {
                 return FailurePage(
                     retryApiCallback: () => cubit.getData(
                         ProductListReqModel(pageNumber: 1, pageSize: 10)),

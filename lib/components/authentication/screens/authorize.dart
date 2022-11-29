@@ -1,10 +1,10 @@
-import 'package:c4b/components/product/product.dart';
-import 'package:c4b/components/authentication/authenticate.dart';
+import 'package:c4b/components/authentication/screens/authenticate.dart';
 import 'package:c4b/components/common/loading.dart';
+import 'package:c4b/components/products/screens/products.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'cubit/authorize/cubit.dart';
+import '../cubit/authorize/cubit.dart';
 
 class Authorize extends StatefulWidget {
   const Authorize({super.key});
@@ -30,7 +30,7 @@ class _AuthorizeState extends State<Authorize> {
           return const Loading();
         } else if (state is AuthorizeAuthenticated) {
           // context_provider.logout = context.read<AuthorizeCubit>().logOut;
-          return const Product();
+          return const Products();
         }
         return const Loading();
       },
