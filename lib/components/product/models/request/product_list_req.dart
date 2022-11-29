@@ -1,12 +1,12 @@
-class StoreListReqModel {
-  StoreListReqModel({
+class ProductListReqModel {
+  ProductListReqModel({
     required this.pageNumber,
     required this.pageSize,
   });
   late final int pageNumber;
   late final int pageSize;
 
-  StoreListReqModel.fromJson(Map<String, dynamic> json){
+  ProductListReqModel.fromJson(Map<String, dynamic> json){
     pageNumber = json['pageNumber'];
     pageSize = json['pageSize'];
   }

@@ -1,30 +1,25 @@
-import 'package:c4b/components/authentication/cubit/authentication/cubit.dart';
-import 'package:c4b/components/common/custom_progress_indicator.dart';
 import 'package:c4b/components/common/failure.dart';
 import 'package:c4b/components/common/loading.dart';
-import 'package:c4b/components/store/cubit/cubit.dart';
-import 'package:c4b/components/store/cubit/cubit.dart';
-import 'package:c4b/components/store/cubit/repository.dart';
-import 'package:c4b/components/store/models/request/store_list_req.dart';
-import 'package:c4b/config/constants.dart';
+import 'package:c4b/components/product/cubit/cubit.dart';
+import 'package:c4b/components/product/cubit/repository.dart';
+import 'package:c4b/components/product/models/request/product_list_req.dart';
 import 'package:c4b/config/fixture_provider.dart';
-import 'package:c4b/components/authentication/models/request/credential_req_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class Store extends StatefulWidget {
-  const Store({super.key});
+class Product extends StatefulWidget {
+  const Product({super.key});
 
   @override
-  State<Store> createState() => _StoreState();
+  State<Product> createState() => _ProductState();
 }
 
-class _StoreState extends State<Store> {
+class _ProductState extends State<Product> {
   final _formKey = GlobalKey<FormState>();
 
   final sizedBox = SizedBox(height: fixtures.sizedBox.d08);
 
-  var cubit = StoreCubit(repository: StoreRepository());
+  var cubit = ProductCubit(repository: ProductRepository());
 
   @override
   Widget build(BuildContext context) {
@@ -32,20 +27,20 @@ class _StoreState extends State<Store> {
       body: SafeArea(
           child: BlocProvider(
         create: (_) => cubit,
-        child: BlocConsumer<StoreCubit, StoreStates>(
+        child: BlocConsumer<ProductCubit, ProductStates>(
             bloc: cubit,
             listener: (context, state) {
 
             },
             builder: (context, state) {
-              if (state is StoreUnInitialized) {
-                cubit.getData(StoreListReqModel(pageNumber: 1, pageSize: 10));
-              } else if (state is StoreSucceeded) {
+              if (state is ProductUnInitialized) {
+                cubit.getData(ProductListReqModel(pageNumber: 1, pageSize: 10));
+              } else if (state is ProductFetchSuccess) {
                 return Text('success');
               } else if (state is StoreFailure) {
                 return FailurePage(
                     retryApiCallback: () => cubit.getData(
-                        StoreListReqModel(pageNumber: 1, pageSize: 10)),
+                        ProductListReqModel(pageNumber: 1, pageSize: 10)),
                     errorMessageModel: state.message);
               }
               return const Loading();

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:json_annotation/json_annotation.dart';
 
 import 'messageResModel.dart';
@@ -11,19 +13,19 @@ class BaseResModel<T> {
       this.statusCode,
       this.success,
       this.targetUrl,
-      this.unAuthorizedRequest,
       this.message,
       this.payloadObjects});
 
   num? statusCode;
   String? targetUrl;
-  Map<String, dynamic>? payloads = Map<String, dynamic>();
+  dynamic payloads;
   List<MessageResModel>? message;
   bool? success;
   bool? unAuthorizedRequest;
   List<T>? payloadObjects;
 
   factory BaseResModel.fromJson(Map<String, dynamic> json) =>
-      _$BaseResModelFromJson(json) as BaseResModel<T>;
+      _$BaseResModelFromJson<T>(json) as BaseResModel<T>;
+
   Map<String, dynamic> toJson() => _$BaseResModelToJson(this);
 }

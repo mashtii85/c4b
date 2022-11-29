@@ -75,7 +75,7 @@ class ApiService extends QueryString {
     return BaseResModel.fromJson(json.decode(response.body));
   }
 
-  Future<BaseResModel> post({
+  Future<BaseResModel<T>> post<T>({
     required String url,
     required dynamic body,
   }) async {
@@ -96,15 +96,16 @@ class ApiService extends QueryString {
       http.Response response;
 
       response = await http.post(uri, body: _body, headers: headerData);
-      var string = response.body;
-      log.i(string);
-      return BaseResModel.fromJson(json.decode(response.body));
+      var bodyContent = json.decode(response.body);
+      // log.i(bodyContent);
+      var res= BaseResModel<T>.fromJson(bodyContent);
+      return res;
     } on SocketException {
-      return _socketException();
+      return _socketException<T>();
     } on HttpException {
-      return _httpException();
+      return _httpException<T>();
     } catch (error) {
-      return _generalCatchException(error);
+      return _generalCatchException<T>(error);
     }
   }
 

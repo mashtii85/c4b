@@ -1,9 +1,6 @@
-import 'package:c4b/components/store/store.dart';
+import 'package:c4b/components/product/product.dart';
 import 'package:c4b/components/authentication/authenticate.dart';
-import 'package:c4b/components/common/custom_progress_indicator.dart';
 import 'package:c4b/components/common/loading.dart';
-import 'package:c4b/config/constants.dart';
-import 'package:c4b/config/fixture_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,9 +30,9 @@ class _AuthorizeState extends State<Authorize> {
           return const Loading();
         } else if (state is AuthorizeAuthenticated) {
           // context_provider.logout = context.read<AuthorizeCubit>().logOut;
-          return const Store();
+          return const Product();
         }
-        return const Text('error');
+        return const Loading();
       },
     );
 

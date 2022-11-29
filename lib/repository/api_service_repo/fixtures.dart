@@ -1,16 +1,16 @@
 part of 'api_service.dart';
 
-BaseResModel _generalCatchException(error) {
-  var _baseModel = BaseResModel(
+BaseResModel<T> _generalCatchException<T>(error) {
+  var _baseModel = BaseResModel<T>(
       success: false,
       statusCode: 502,
       message: [MessageResModel(text: 'Error', description: error.toString())],
-      payloads: Map<String, dynamic>());
+      payloads: <String, dynamic>{});
   return _baseModel;
 }
 
-BaseResModel _httpException() {
-  var _baseModel = BaseResModel(
+BaseResModel<T> _httpException<T>() {
+  var _baseModel = BaseResModel<T>(
       success: false,
       statusCode: 503,
       message: [
@@ -18,12 +18,12 @@ BaseResModel _httpException() {
             text: 'Error in fetching data',
             description: 'Service is unavailable!')
       ],
-      payloads: Map<String, dynamic>());
+      payloads: <String, dynamic>{});
   return _baseModel;
 }
 
-BaseResModel _socketException() {
-  var _baseModel = BaseResModel(
+BaseResModel<T> _socketException<T>() {
+  var _baseModel = BaseResModel<T>(
       success: false,
       statusCode: 503,
       message: [
@@ -31,7 +31,8 @@ BaseResModel _socketException() {
             text: 'Error in fetching data',
             description: 'No internet connection!')
       ],
-      payloads: Map<String, dynamic>());
+      payloads: <String, dynamic>{});
+
   return _baseModel;
 }
 

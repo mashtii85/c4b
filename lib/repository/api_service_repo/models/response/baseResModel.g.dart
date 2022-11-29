@@ -6,16 +6,19 @@ part of 'baseResModel.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-BaseResModel _$BaseResModelFromJson(Map<String, dynamic> json) {
-  return BaseResModel()
+BaseResModel _$BaseResModelFromJson<T>(Map<String, dynamic> json) {
+  var _payload = json['body'];
+
+  var parse = _payload != null ? jsonDecode(_payload) : null;
+
+  return BaseResModel<T>()
     ..statusCode = json['statusCode'] as num?
-    ..targetUrl = json['targetUrl'] as String?
-    ..payloads = json['payloads'] as Map<String, dynamic>?
-    ..message = (json['message'] as List?)
-        ?.map((e) => MessageResModel.fromJson(e as Map<String, dynamic>))
-        .toList()
-    ..success = json['success'] as bool?
-    ..unAuthorizedRequest = json['unAuthorizedRequest'] as bool?;
+    ..payloads = parse
+    // ..message = (json['message'] as List?)
+    //     ?.map((e) => MessageResModel.fromJson(e as Map<String, dynamic>))
+    //     .toList()
+    ..payloadObjects = []
+    ..success = json['statusCode'] == 200;
 }
 
 Map<String, dynamic> _$BaseResModelToJson(BaseResModel instance) =>
