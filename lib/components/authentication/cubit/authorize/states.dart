@@ -1,8 +1,10 @@
 part of 'cubit.dart';
 
 @immutable
-abstract class AuthorizeState {
+abstract class AuthorizeState extends Equatable {
   const AuthorizeState();
+  @override
+  List<Object> get props => [];
 }
 
 class AuthorizeUninitialized extends AuthorizeState {

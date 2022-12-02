@@ -7,6 +7,7 @@ import 'package:c4b/components/authentication/models/response/jwt_res_model.dart
 import 'package:c4b/components/authentication/models/user_credentials_model.dart';
 import 'package:flutter/material.dart';
 import 'package:c4b/config/context_provider.dart' as context_provider;
+import 'package:equatable/equatable.dart';
 
 part 'states.dart';
 

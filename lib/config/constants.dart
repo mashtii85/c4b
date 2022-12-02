@@ -20,4 +20,6 @@ class Constants {
   String get appLogo => 'lib/assets/images/logo.png';
 
   String get loginImage => 'lib/assets/images/logo.png';
+
+  String get baseUrl=>'https://3a5t828wn0.execute-api.us-east-1.amazonaws.com/C4B2/';
 }

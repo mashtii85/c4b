@@ -1,8 +1,8 @@
 import 'package:c4b/components/authentication/cubit/authenticate_repository.dart';
 import 'package:c4b/components/authentication/cubit/authentication/cubit.dart';
 import 'package:c4b/components/authentication/cubit/authorize/cubit.dart';
-import 'package:c4b/components/products/models/response/product_res_model.dart';
-import 'package:c4b/components/products/screens/product_list.dart';
+import 'package:c4b/components/products/screens/products.dart';
+import 'package:c4b/config/constants.dart';
 import 'package:flutter/material.dart';
 
 import 'components/authentication/screens/authorize.dart';
@@ -36,8 +36,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     var scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
-    context_provider.baseUrl =
-        'https://3a5t828wn0.execute-api.us-east-1.amazonaws.com/C4B2/';
+    context_provider.baseUrl = Constants().baseUrl;
     return MultiBlocProvider(
         providers: [
           BlocProvider<AuthorizeCubit>(
@@ -50,21 +49,12 @@ class _MyAppState extends State<MyApp> {
           ),
         ],
         child: MaterialApp(
-          title: 'Flutter Demo',
-          debugShowCheckedModeBanner: false,
-          scaffoldMessengerKey: scaffoldMessengerKey,
-          theme: theme(context, 'fontFamily'),
-          home: ProductList([
-            ProductResModel(
-                id: 1,
-                name: "Motorola Edge (2022)",
-                price: 1319,
-                color: 'green',
-                count: 50,
-                image: "https://fdn2.gsmarena.com/vv/pics/motorola/motorola-edge-2022-1.jpg",
-                brand: "Motorola")
-          ]),
-          // home: const Authorize(),
-        ));
+            title: 'Flutter Demo',
+            debugShowCheckedModeBanner: false,
+            scaffoldMessengerKey: scaffoldMessengerKey,
+            theme: theme(context, 'fontFamily'),
+            home: const Products()
+            // home: const Authorize(),
+            ));
   }
 }
