@@ -3,7 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:c4b/components/authentication/cubit/authenticate_repository.dart';
 import 'package:c4b/components/authentication/cubit/authorize/cubit.dart';
 
-import 'package:c4b/repository/api_service_repo/models/response/messageResModel.dart';
+import 'package:c4b/api_service/models/response/messageResModel.dart';
 import 'package:c4b/components/authentication/models/request/credential_req_model.dart';
 import 'package:c4b/components/authentication/models/response/jwt_res_model.dart';
 import 'package:c4b/components/authentication/models/response/credential_res_model.dart';
@@ -42,7 +42,7 @@ class AuthenticateCubit extends Cubit<AuthenticateStates> {
             MessageResModel(title: 'Authentication Failed',description: model.body)));
       }
     } catch (error) {
-      emit(AuthenticateFailure(MessageResModel(title: error.toString())));
+      emit(AuthenticateFailure(MessageResModel(title:'error',description: error.toString())));
     }
   }
 }

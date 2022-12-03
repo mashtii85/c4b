@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:c4b/components/authentication/cubit/daos/implementation/credential_dao.dart';
-import 'package:c4b/repository/api_service_repo/api_service.dart';
-import 'package:c4b/repository/api_service_repo/api_urls.dart';
+import 'package:c4b/api_service/api_service.dart';
+import 'package:c4b/api_service/api_urls.dart';
 import 'package:c4b/components/authentication/models/request/credential_req_model.dart';
 import 'package:c4b/components/authentication/models/response/credential_res_model.dart';
 

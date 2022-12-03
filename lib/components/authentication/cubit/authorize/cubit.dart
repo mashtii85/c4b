@@ -23,7 +23,7 @@ class AuthorizeCubit extends Cubit<AuthorizeState> {
         await userRepository.retrieveToken();
 
     if (userCredentials != null &&
-        userCredentials!.accessToken != null &&
+        userCredentials!.accessToken !=null &&
         userCredentials!.tokenType != null) {
       if (userCredentials.isExpired) {
         userRepository.deleteToken();

@@ -18,6 +18,10 @@ set userCredentials(UserCredentialsModel credentials) {
   _userCredentials = credentials;
 }
 
-String? get token => _userCredentials.tokenType != null
-    ? '${userCredentials.tokenType} ${_userCredentials.accessToken}'
-    : null;
+String? get token {
+  return _userCredentials !=null && _userCredentials!.tokenType != null
+      ? '${userCredentials.tokenType} ${_userCredentials.accessToken}'
+      : '';
+}
+
+late Future<void> Function() logout;

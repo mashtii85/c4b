@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:c4b/components/authentication/models/user_credentials_model.dart';
-import 'package:c4b/repository/api_service_repo/api_urls.dart';
+import 'package:c4b/api_service/api_urls.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

@@ -1,5 +1,5 @@
 import 'package:c4b/config/fixture_provider.dart';
-import 'package:c4b/repository/api_service_repo/models/response/messageResModel.dart';
+import 'package:c4b/api_service/models/response/messageResModel.dart';
 import 'package:flutter/material.dart';
 
 class FailurePage extends StatelessWidget {

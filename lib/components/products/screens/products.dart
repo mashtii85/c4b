@@ -9,64 +9,73 @@ import 'package:c4b/config/fixture_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class Products extends StatefulWidget {
+class Products extends StatefulWidget  {
   const Products({super.key});
 
   @override
   State<Products> createState() => _ProductsState();
 }
 
-class _ProductsState extends State<Products> {
+class _ProductsState extends State<Products> with AutomaticKeepAliveClientMixin{
 
-  final sizedBox = SizedBox(height: fixtures.sizedBox.d08);
+  late ProductCubit cubit;
 
-  var cubit = ProductCubit(repository: ProductRepository());
+  @override
+  void initState() {
+    cubit = ProductCubit(repository: ProductRepository());
+    super.initState();
+  }
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: BlocProvider(
-            create: (_) => cubit,
-            child: BlocConsumer<ProductCubit, ProductStates>(
-                bloc: cubit,
-                listener: (context, state) {},
-                builder: (context, state) {
-                  if (state is ProductUnInitialized) {
-                    cubit.getData(
-                        ProductListReqModel(pageNumber: 1, pageSize: 10),
-                        false);
-                  } else if (state is ProductFetchSuccess) {
-                    return PagedListView(
-                        getNextPageCallBack: () =>
-                            cubit.getData(
-                                ProductListReqModel(
-                                    pageNumber: state.page,
-                                    pageSize: state.pageSize),
-                                true),
-                        hasNextPage: state.hasNextPage,
-                        itemLength: state.productList.length,
-                        itemBuilder: (index) {
-                          return Padding(
-                            padding:
-                            EdgeInsets.symmetric(vertical: fixtures.margin.d04,horizontal: fixtures.margin.d08),
-                            child: ProductCard(state.productList[index]),
-                          );
-                        });
-                  } else if (state is ProductFailure) {
-                    return FailurePage(
-                        retryApiCallback: () =>
-                            cubit.getData(
-                                ProductListReqModel(
-                                    pageNumber: 1, pageSize: 10),
-                                false),
-                        errorMessageModel: state.message);
-                  }
-                  return const Loading();
-                }),
-          )),
+          child: BlocBuilder<ProductCubit, ProductStates>(
+              bloc: cubit,
+              builder: (context, state) {
+                if (state is ProductUnInitialized) {
+                  cubit.getData(
+                      ProductListReqModel(pageNumber: 1, pageSize: 10),
+                      false);
+                } else if (state is ProductFetchSuccess) {
+                  return PagedListView(
+                      getNextPageCallBack: () =>
+                          cubit.getData(
+                              ProductListReqModel(
+                                  pageNumber: state.page+1,
+                                  pageSize: state.pageSize),
+                              true),
+                      hasNextPage: state.hasNextPage,
+                      itemLength: state.productList.length,
+                      itemBuilder: (index) {
+                        return Padding(
+                          padding:
+                          EdgeInsets.symmetric(vertical: fixtures.margin.d04,horizontal: fixtures.margin.d08),
+                          child: ProductCard(state.productList[index]),
+                        );
+                      });
+                } else if (state is ProductFailure) {
+                  return FailurePage(
+                      retryApiCallback: () =>
+                          cubit.getData(
+                              ProductListReqModel(
+                                  pageNumber: 1, pageSize: 10),
+                              false),
+                      errorMessageModel: state.message);
+                }
+
+                return const Loading();
+              }),),
     );
   }
 
+  @override
+  void dispose() {
+    cubit.close();
+    super.dispose();
+  }
 
 }

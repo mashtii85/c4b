@@ -53,8 +53,15 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             scaffoldMessengerKey: scaffoldMessengerKey,
             theme: theme(context, 'fontFamily'),
-            home: const Products()
-            // home: const Authorize(),
+            // home: const Products()
+            home: const Authorize(),
             ));
+  }
+
+  @override
+  void dispose() {
+    authenticateCubit.close();
+    authenticateCubit.close();
+    super.dispose();
   }
 }

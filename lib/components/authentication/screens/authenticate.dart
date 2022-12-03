@@ -53,7 +53,6 @@ class _AuthenticateState extends State<Authenticate> {
 
   Widget _loginPage(bool isLoading) {
     double width = MediaQuery.of(context).size.width;
-
     return Form(
       key: _formKey,
       child: Padding(

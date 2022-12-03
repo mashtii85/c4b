@@ -1,12 +1,15 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:c4b/api_service/constants/api_service_constants.dart';
+import 'package:c4b/api_service/formatters/query_string.dart';
+import 'package:c4b/components/authentication/models/request/credential_req_model.dart';
+import 'package:c4b/components/authentication/models/response/credential_res_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 
 import 'package:c4b/config/context_provider.dart' as context_provider;
-import 'formatters/query_string.dart';
 import 'models/response/baseResModel.dart';
 import 'models/response/messageResModel.dart';
 
@@ -80,7 +83,8 @@ class ApiService extends QueryString {
     required dynamic body,
   }) async {
     try {
-      token = context_provider.token;
+      debugPrint(context_provider.token!);
+      token = context_provider.token ?? '';
       final String completeUrl = context_provider.baseUrl! + url;
       Uri uri = Uri.parse(completeUrl);
 
@@ -93,17 +97,15 @@ class ApiService extends QueryString {
       if (isDebug) {
         log.i('post request to $completeUrl with data: $_body');
       }
-      http.Response response;
+      http.Response result;
 
-      response = await http.post(uri, body: _body, headers: headerData);
-      var bodyContent = json.decode(response.body);
+      result = await http.post(uri, body: _body, headers: headerData);
+
       // log.i(bodyContent);
-      var res= BaseResModel<T>.fromJson(bodyContent);
+      // var res = BaseResModel<T>.fromJson(bodyContent);
+      var res =
+          await isAuthenticated<T>(RequestTypes.POST, result, url, _body);
       return res;
-    } on SocketException {
-      return _socketException<T>();
-    } on HttpException {
-      return _httpException<T>();
     } catch (error) {
       return _generalCatchException<T>(error);
     }

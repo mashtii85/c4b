@@ -1,4 +1,4 @@
-part of 'api_service.dart';
+part of '../../api_service/api_service.dart';
 
 BaseResModel<T> _generalCatchException<T>(error) {
   var _baseModel = BaseResModel<T>(
@@ -53,5 +53,34 @@ Future<String> _getCredential(
   } catch (error) {
     log.i(error.toString());
     return '{statusCode=400,body=$error}';
+  }
+}
+
+
+Future<BaseResModel<T>> isAuthenticated<T>(
+    RequestTypes requestType, http.Response result, String url, body) async {
+  try {
+    var json = jsonDecode(result.body);
+
+    if (json['statusCode'] != 401) {
+      var res = BaseResModel<T>.fromJson(json);
+      return res;
+    } else {
+      context_provider.logout();
+      return BaseResModel();
+
+    }
+  } on SocketException {
+    return _socketException<T>();
+  } on HttpException {
+    return _httpException<T>();
+  } catch (error) {
+    return BaseResModel<T>()
+      ..statusCode = 503
+      ..message = [
+        MessageResModel(text: 'error', description: error.toString())
+      ]
+      ..payloadObjects = []
+      ..payloads = {'message': 'error from refresh token catch'};
   }
 }

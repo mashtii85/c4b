@@ -15,12 +15,6 @@ class ProductUnInitialized extends ProductStates {
   }
 }
 
-class ProductFetchData extends ProductStates {
-  ProductFetchData() {
-    debugPrint('Fetching Data');
-  }
-}
-
 class ProductFetchSuccess extends ProductStates {
   final List<ProductResModel> productList;
   final int pageSize;
@@ -37,15 +31,9 @@ class ProductFetchSuccess extends ProductStates {
 }
 
 class ProductLoading extends ProductStates {
-  ProductLoading() {
-    debugPrint('StoreLoading');
-  }
-}
-
-class ProductIndicatorLoading extends ProductStates {
-  ProductIndicatorLoading() {
-    debugPrint('StoreLoading');
-  }
+  // ProductLoading() {
+  //   debugPrint('Product Loading');
+  // }
 }
 
 class ProductFailure extends ProductStates {
