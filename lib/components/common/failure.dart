@@ -1,5 +1,5 @@
 import 'package:c4b/config/fixture_provider.dart';
-import 'package:c4b/api_service/models/response/messageResModel.dart';
+import 'package:c4b/api_service/models/response/message_res_model.dart';
 import 'package:flutter/material.dart';
 
 class FailurePage extends StatelessWidget {
@@ -50,11 +50,7 @@ class FailurePage extends StatelessWidget {
                                     color: fixtures.colorPalette.black,
                                     fontSize: 12),
                                 textAlign: TextAlign.center),
-                            Text('code: ${errorMessageModel.type ?? 'no code'}',
-                                style: TextStyle(
-                                    color: fixtures.colorPalette.black,
-                                    fontSize: 12),
-                                textAlign: TextAlign.center),
+
                             SizedBox(
                               height: fixtures.padding.d16,
                             )

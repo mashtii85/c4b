@@ -4,7 +4,7 @@ import 'package:c4b/components/products/cubits/repository.dart';
 import 'package:c4b/components/products/models/request/product_list_req.dart';
 import 'package:c4b/components/products/models/response/product_res_model.dart';
 
-import 'package:c4b/api_service/models/response/messageResModel.dart';
+import 'package:c4b/api_service/models/response/message_res_model.dart';
 import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
 

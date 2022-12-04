@@ -10,8 +10,8 @@ import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 
 import 'package:c4b/config/context_provider.dart' as context_provider;
-import 'models/response/baseResModel.dart';
-import 'models/response/messageResModel.dart';
+import 'models/response/base_res_model.dart';
+import 'models/response/message_res_model.dart';
 
 part 'fixtures.dart';
 

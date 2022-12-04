@@ -3,7 +3,7 @@ import 'package:c4b/components/products/models/response/product_list_res_model.d
 import 'package:c4b/components/products/models/response/product_res_model.dart';
 import 'package:c4b/api_service/api_service.dart';
 import 'package:c4b/api_service/api_urls.dart';
-import 'package:c4b/api_service/models/response/baseResModel.dart';
+import 'package:c4b/api_service/models/response/base_res_model.dart';
 
 class ProductRepository {
   final ApiService _service = ApiService();

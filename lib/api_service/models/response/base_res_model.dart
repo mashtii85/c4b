@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:json_annotation/json_annotation.dart';
 
-import 'messageResModel.dart';
+import 'message_res_model.dart';
 
-part 'baseResModel.g.dart';
+part 'base_res_model.g.dart';
 
 @JsonSerializable()
 class BaseResModel<T> {
@@ -12,16 +12,13 @@ class BaseResModel<T> {
       {this.payloads,
       this.statusCode,
       this.success,
-      this.targetUrl,
       this.message,
       this.payloadObjects});
 
   num? statusCode;
-  String? targetUrl;
   dynamic payloads;
   List<MessageResModel>? message;
   bool? success;
-  bool? unAuthorizedRequest;
   List<T>? payloadObjects;
 
   factory BaseResModel.fromJson(Map<String, dynamic> json) =>
